@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Starter Bundle</title>
+</head>
+<body style="background:#0f172a;color:white;font-family:Poppins;text-align:center;">
+<h1>Starter Bundle</h1>
+<img src="images/product1.jpg" style="width:300px;">
+<p>Includes 5 hacky sacks and guide.</p>
+<button onclick="addToCart('Starter Bundle',19.99)">Add to Cart</button>
+<script>
+function addToCart(name, price){
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push({name, price});
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert('Added to cart');
+}
+</script>
+</body>
+</html>
+
+
+
