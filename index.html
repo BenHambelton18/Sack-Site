@@ -1,3 +1,5 @@
+<!-- MODERNIZED SITE -->
+
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -5,58 +7,155 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hacky Sack Shop</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #0f172a;
-  --card: #1e293b;
-  --accent: #22c55e;
-  --text: #f1f5f9;
+  --bg: #0b0b0c;
+  --card: #151517;
+  --accent: #7c3aed;
+  --text: #f9fafb;
+  --muted: #9ca3af;
 }
-body { margin:0; font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text);} 
-header {padding:20px;text-align:center;background:var(--card);} 
-.container {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;} 
-.product {background:var(--card);padding:15px;border-radius:15px;text-align:center;} 
-img {width:100%;height:200px;object-fit:cover;border-radius:10px;} 
-button {margin-top:10px;padding:10px;background:var(--accent);border:none;border-radius:8px;color:white;cursor:pointer;} 
-.cart {position:fixed;top:20px;right:20px;background:var(--card);padding:10px 15px;border-radius:10px;}
+
+body {
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  position:sticky;
+  top:0;
+}
+
+.logo {font-weight:700;font-size:20px;}
+
+.cart-btn {
+  background:var(--accent);
+  padding:10px 15px;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+.hero {
+  text-align:center;
+  padding:80px 20px;
+}
+
+.hero h1 {
+  font-size:48px;
+  margin-bottom:10px;
+}
+
+.hero p {color:var(--muted);}
+
+.container {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+  padding:40px;
+}
+
+.product {
+  background:var(--card);
+  border-radius:20px;
+  overflow:hidden;
+  transition:0.3s;
+}
+
+.product:hover {
+  transform:translateY(-8px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.product img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.product-content {
+  padding:15px;
+}
+
+.price {color:var(--accent);font-weight:600;}
+
+.buttons {
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+button {
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.primary {background:var(--accent);color:white;}
+.secondary {background:#2a2a2e;color:white;}
+
 </style>
 </head>
 <body>
 
 <header>
-<h1>Hacky Sack Shop</h1>
+<div class="logo">Hacky Sack Co.</div>
+<a href="checkout.html" class="cart-btn">Cart (<span id="cart-count">0</span>)</a>
 </header>
 
-<div class="cart">
-🛒 Cart: <span id="cart-count">0</span>
-</div>
+<section class="hero">
+<h1>Level Up Your Stall Game</h1>
+<p>Premium hacky sacks & training gear</p>
+</section>
 
 <div class="container">
 
 <div class="product">
 <img src="images/product1.jpg">
-<h2>Starter Bundle</h2>
-<p>$19.99</p>
-<button onclick="addToCart('Starter Bundle',19.99)">Add to Cart</button>
-<a href="product1.html"><button>View</button></a>
+<div class="product-content">
+<h3>Starter Bundle</h3>
+<p class="price">$19.99</p>
+<div class="buttons">
+<button class="primary" onclick="addToCart('Starter Bundle',19.99)">Add</button>
+<a href="product1.html"><button class="secondary">View</button></a>
+</div>
+</div>
 </div>
 
 <div class="product">
 <img src="images/product2.jpg">
-<h2>Pro Sack</h2>
-<p>$9.99</p>
-<button onclick="addToCart('Pro Sack',9.99)">Add to Cart</button>
-<a href="product2.html"><button>View</button></a>
+<div class="product-content">
+<h3>Pro Sack</h3>
+<p class="price">$9.99</p>
+<div class="buttons">
+<button class="primary" onclick="addToCart('Pro Sack',9.99)">Add</button>
+<a href="product2.html"><button class="secondary">View</button></a>
+</div>
+</div>
 </div>
 
 <div class="product">
 <img src="images/product3.jpg">
-<h2>Training Guide</h2>
-<p>$4.99</p>
-<button onclick="addToCart('Training Guide',4.99)">Add to Cart</button>
-<a href="product3.html"><button>View</button></a>
+<div class="product-content">
+<h3>Training Guide</h3>
+<p class="price">$4.99</p>
+<div class="buttons">
+<button class="primary" onclick="addToCart('Training Guide',4.99)">Add</button>
+<a href="product3.html"><button class="secondary">View</button></a>
+</div>
+</div>
 </div>
 
 </div>
