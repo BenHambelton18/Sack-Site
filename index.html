@@ -1,33 +1,81 @@
-
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hacky Sack Stall Starter Pack</title>
-  <style>
-    body { font-family: Arial; background: #111; color: white; margin: 0; }
-    header { padding: 20px; text-align: center; background: #222; }
-    .container { padding: 20px; }
-    .product { background: #1e1e1e; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-    img { width: 200px; border-radius: 10px; }
-    button { padding: 10px 20px; background: #00c853; border: none; border-radius: 5px; color: white; cursor: pointer; }
-    a { color: white; text-decoration: none; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hacky Sack Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --accent: #22c55e;
+  --text: #f1f5f9;
+}
+body { margin:0; font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text);} 
+header {padding:20px;text-align:center;background:var(--card);} 
+.container {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;} 
+.product {background:var(--card);padding:15px;border-radius:15px;text-align:center;} 
+img {width:100%;height:200px;object-fit:cover;border-radius:10px;} 
+button {margin-top:10px;padding:10px;background:var(--accent);border:none;border-radius:8px;color:white;cursor:pointer;} 
+.cart {position:fixed;top:20px;right:20px;background:var(--card);padding:10px 15px;border-radius:10px;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Hacky Sack Stall Starter Pack</h1>
-  </header>
 
-  <div class="container">
-    <div class="product">
-      <h2>Starter Pack Bundle</h2>
-      <img src="https://via.placeholder.com/200" alt="product">
-      <p>Includes 5 hacky sacks, stall guide, and training plan.</p>
-      <h3>$14.99</h3>
-      <a href="checkout.html"><button>Buy Now</button></a>
-    </div>
-  </div>
+<header>
+<h1>Hacky Sack Shop</h1>
+</header>
+
+<div class="cart">
+🛒 Cart: <span id="cart-count">0</span>
+</div>
+
+<div class="container">
+
+<div class="product">
+<img src="images/product1.jpg">
+<h2>Starter Bundle</h2>
+<p>$19.99</p>
+<button onclick="addToCart('Starter Bundle',19.99)">Add to Cart</button>
+<a href="product1.html"><button>View</button></a>
+</div>
+
+<div class="product">
+<img src="images/product2.jpg">
+<h2>Pro Sack</h2>
+<p>$9.99</p>
+<button onclick="addToCart('Pro Sack',9.99)">Add to Cart</button>
+<a href="product2.html"><button>View</button></a>
+</div>
+
+<div class="product">
+<img src="images/product3.jpg">
+<h2>Training Guide</h2>
+<p>$4.99</p>
+<button onclick="addToCart('Training Guide',4.99)">Add to Cart</button>
+<a href="product3.html"><button>View</button></a>
+</div>
+
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+updateCart();
+
+function addToCart(name, price){
+  cart.push({name, price});
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCart();
+}
+
+function updateCart(){
+  document.getElementById('cart-count').innerText = cart.length;
+}
+</script>
+
 </body>
 </html>
 
