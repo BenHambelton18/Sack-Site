@@ -1,0 +1,18 @@
+<!-- product3.html -->
+<!DOCTYPE html>
+<html><body style="background:#0f172a;color:white;font-family:Poppins;text-align:center;">
+<h1>Training Guide</h1>
+<img src="images/product3.jpg" style="width:300px;">
+<p>Learn stalls fast.</p>
+<button onclick="addToCart('Training Guide',4.99)">Add to Cart</button>
+<script>
+function addToCart(name, price){
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push({name, price});
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert('Added to cart');
+}
+</script>
+</body></html>
+
+
