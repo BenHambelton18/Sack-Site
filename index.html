@@ -161,4 +161,17 @@ function renderCart(){
       </div>`;
   });
 
-  document.getElementById('total').innerTex
+  document.getElementById('total').innerText = 'Total: $' + total.toFixed(2);
+  document.getElementById('cart-count').innerText = cart.reduce((sum,i)=>sum+i.qty,0);
+}
+
+function toggleCart(){
+  document.getElementById('cartPanel').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+
+renderCart();
+</script>
+
+</body>
+</html>
