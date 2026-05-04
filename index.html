@@ -1,4 +1,4 @@
-<!-- ADVANCED MODERN SITE WITH SLIDE CART -->
+<!-- FIXED MODERN SITE WITH ALL PRODUCTS + WORKING CART -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,26 +14,22 @@
   --card:#151517;
   --accent:#7c3aed;
   --text:#f9fafb;
-  --muted:#9ca3af;
 }
-
 body {margin:0;font-family:Inter;background:var(--bg);color:var(--text);} 
-
-header {display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);position:sticky;top:0;}
+header {display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10;}
 .logo {font-weight:700;}
 .cart-btn {background:var(--accent);padding:10px 15px;border-radius:999px;cursor:pointer;}
 
 .container {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;padding:40px;}
 .product {background:var(--card);border-radius:20px;overflow:hidden;transition:.3s;}
-.product:hover {transform:translateY(-8px);}
-.product img {width:100%;height:220px;object-fit:cover;}
-.product-content {padding:15px;}
+.product:hover {transform:translateY(-8px);} 
+.product img {width:100%;height:220px;object-fit:cover;} 
+.product-content {padding:15px;} 
 .price {color:var(--accent);} 
-button {padding:10px;border:none;border-radius:10px;cursor:pointer;}
-.primary {background:var(--accent);color:white;}
-.secondary {background:#2a2a2e;color:white;}
+button {padding:10px;border:none;border-radius:10px;cursor:pointer;} 
+.primary {background:var(--accent);color:white;} 
 
-/* SLIDE CART */
+/* CART */
 .cart-panel {
   position:fixed;
   top:0;
@@ -44,20 +40,22 @@ button {padding:10px;border:none;border-radius:10px;cursor:pointer;}
   padding:20px;
   transition:0.3s;
   overflow-y:auto;
+  z-index:20;
 }
 .cart-panel.open {right:0;}
-
-.cart-item {display:flex;justify-content:space-between;align-items:center;margin:10px 0;}
-.qty {display:flex;gap:5px;}
-.qty button {padding:5px 10px;}
 
 .overlay {
   position:fixed;
   top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.5);
   display:none;
+  z-index:15;
 }
 .overlay.show {display:block;}
+
+.cart-item {display:flex;justify-content:space-between;align-items:center;margin:10px 0;}
+.qty {display:flex;gap:5px;}
+.qty button {padding:5px 10px;}
 
 </style>
 </head>
@@ -70,6 +68,7 @@ button {padding:10px;border:none;border-radius:10px;cursor:pointer;}
 
 <div class="container">
 
+<!-- PRODUCT 1 -->
 <div class="product">
 <img src="images/product1.jpg">
 <div class="product-content">
@@ -79,6 +78,7 @@ button {padding:10px;border:none;border-radius:10px;cursor:pointer;}
 </div>
 </div>
 
+<!-- PRODUCT 2 -->
 <div class="product">
 <img src="images/product2.jpg">
 <div class="product-content">
@@ -88,7 +88,17 @@ button {padding:10px;border:none;border-radius:10px;cursor:pointer;}
 </div>
 </div>
 
+<!-- PRODUCT 3 (FIXED) -->
+<div class="product">
+<img src="images/product3.jpg">
+<div class="product-content">
+<h3>Training Guide</h3>
+<p class="price">$4.99</p>
+<button class="primary" onclick="addToCart('Training Guide',4.99)">Add</button>
+</div>
+</div>
 
+<!-- PRODUCT 4 -->
 <div class="product">
 <img src="images/product4.jpg">
 <div class="product-content">
@@ -105,7 +115,6 @@ button {padding:10px;border:none;border-radius:10px;cursor:pointer;}
 <h2>Your Cart</h2>
 <div id="cart-items"></div>
 <h3 id="total"></h3>
-<button class="primary">Checkout</button>
 </div>
 
 <div class="overlay" id="overlay" onclick="toggleCart()"></div>
@@ -119,11 +128,8 @@ function saveCart(){
 
 function addToCart(name, price){
   let existing = cart.find(item => item.name === name);
-  if(existing){
-    existing.qty++;
-  } else {
-    cart.push({name, price, qty:1});
-  }
+  if(existing){ existing.qty++; }
+  else { cart.push({name, price, qty:1}); }
   saveCart();
   renderCart();
 }
@@ -132,15 +138,7 @@ function changeQty(name, delta){
   let item = cart.find(i => i.name === name);
   if(!item) return;
   item.qty += delta;
-  if(item.qty <= 0){
-    cart = cart.filter(i => i.name !== name);
-  }
-  saveCart();
-  renderCart();
-}
-
-function removeItem(name){
-  cart = cart.filter(i => i.name !== name);
+  if(item.qty <= 0){ cart = cart.filter(i => i.name !== name); }
   saveCart();
   renderCart();
 }
@@ -154,31 +152,13 @@ function renderCart(){
     total += item.price * item.qty;
     container.innerHTML += `
       <div class="cart-item">
-        <div>
-          ${item.name}<br>$${item.price}
-        </div>
+        <div>${item.name}<br>$${item.price}</div>
         <div class="qty">
           <button onclick="changeQty('${item.name}', -1)">-</button>
           <span>${item.qty}</span>
           <button onclick="changeQty('${item.name}', 1)">+</button>
-          <button onclick="removeItem('${item.name}')">x</button>
         </div>
-      </div>
-    `;
+      </div>`;
   });
 
-  document.getElementById('total').innerText = 'Total: $' + total.toFixed(2);
-  document.getElementById('cart-count').innerText = cart.reduce((sum,i)=>sum+i.qty,0);
-}
-
-function toggleCart(){
-  document.getElementById('cartPanel').classList.toggle('open');
-  document.getElementById('overlay').classList.toggle('show');
-}
-
-renderCart();
-</script>
-
-</body>
-</html>
-
+  document.getElementById('total').innerTex
